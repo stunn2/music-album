@@ -1,0 +1,11 @@
+redis:
+  passwordSecretName: music-album-redis
+  configMapName: music-album-config
+  statefulSetName: music-album-redis-master
+  host: music-album-redis-headless
+
+goApp:
+  image:
+    repository: stunn/music-album
+    tag: latest
+  tlsSecretName: tls-secret

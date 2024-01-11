@@ -1,0 +1,3 @@
+# Default values for redis-prerun.
+redis:
+  passwordFile: redis-password.txt

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: music-album-service-chart
+description: A Helm chart for deploying Go application and Redis
+version: 0.1.0

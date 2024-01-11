@@ -16,10 +16,11 @@ func main() {
 	if len(os.Args) < 2 {
 		log.Fatal("Missing DB address")
 	}
+
 	client := redis.NewClient(&redis.Options{
 		Addr:	  os.Args[1],
 		Username: "default",
-		Password: os.Getenv("PASSWORD"),
+		Password: os.Getenv("REDIS_PASSWORD"),
 	})
 
 	_, err := client.Info(context.Background()).Result()

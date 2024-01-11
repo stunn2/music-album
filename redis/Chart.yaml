@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: 7.2.3
+maintainers:
+- name: VMware, Inc.
+  url: https://github.com/bitnami/charts
+name: redis
+sources:
+- https://github.com/bitnami/charts/tree/main/bitnami/redis
+version: 18.6.2

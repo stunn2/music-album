@@ -1,0 +1,32 @@
+replicaCount: 1
+image:
+  hostname: docker.io
+  repository: /golang-enthusiast/k8-golang-demo
+  tag: 0.1.0
+  pullPolicy: IfNotPresent
+migration:
+  image:
+    hostname: docker.io
+    repository: /golang-enthusiast/k8-golang-demo-data-migration
+    tag: 0.3.0
+    pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  protocol: TCP
+  port: 6565
+  httpPort: 8080
+  name: grpc
+ingress:
+  name: http
+  protocol: HTTP
+  port: 80
+  extension: svc.cluster.local
+serviceAccount:
+  create: true
+
+grpcGateway:
+  service:
+    protocol: TCP
+    port: 8080
+    name: http
+skaffold: false

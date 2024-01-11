@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service
+spec:
+  selector:
+    app: music-album-service
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+  type: LoadBalancer
+  tls:
+    - secretName: {{ .Values.goApp.tlsSecretName }}
+      hosts:
+        - your.domain.com

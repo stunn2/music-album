@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-music-album-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: music-album-service
+  template:
+    metadata:
+      labels:
+        app: music-album-service
+    spec:
+      containers:
+        - name: music-album-service-container
+          image: {{ .Values.goApp.image.repository }}:{{ .Values.goApp.image.tag }}
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.redis.passwordSecretName }}
+                  key: redis-password
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: music-album-config
+                  key: REDIS_HOST
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: tls-certs
+              mountPath: "/etc/tls"
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
+            requests:
+              cpu: "0.2"
+              memory: "256Mi"
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: {{ .Values.goApp.tlsSecretName }}
